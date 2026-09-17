@@ -1,4 +1,3 @@
-// level - 1
 class Author {
   final String name;
   final String? country;
@@ -17,14 +16,13 @@ enum Genre {
   final String label;
   const Genre(this.label);
 
-  static Genre fromString(String? raw) => switch (raw) {
-    'craft' => Genre.craft,
-    'theory' => Genre.theory,
-    _ => Genre.unknown,
-  };
+  static Genre fromString(String? raw) {
+    if (raw == 'craft') return Genre.craft;
+    if (raw == 'theory') return Genre.theory;
+    return Genre.unknown;
+  }
 }
 
-// level - 2
 abstract class LibraryItem {
   final String title;
   final int year;
@@ -55,51 +53,32 @@ class Book extends LibraryItem with Borrowable {
     this.description,
   });
 
-
   factory Book.fromJson(Map<String, dynamic> json) {
-    final title = switch (json['title']) {
-      final String value => value,
-      _ => 'Untitled',
-    };
-    final year = switch (json['year']) {
-      final int value => value,
-      _ => 0,
-    };
-    final pages = switch (json['pages']) {
-      final int value => value,
-      _ => 0,
-    };
-    final authorName = switch (json['author']) {
-      final String value => value,
-      _ => 'Unknown',
-    };
-    final country = switch (json['country']) {
-      final String value => value,
-      _ => null,
-    };
-    final rawGenre = switch (json['genre']) {
-      final String value => value,
-      _ => null,
-    };
-    final description = switch (json['description']) {
-      final String value => value,
-      _ => null,
-    };
+    var title = json['title'];
+    var year = json['year'];
+    var pages = json['pages'];
+    var author = json['author'];
+    var country = json['country'];
+    var genre = json['genre'];
+    var description = json['description'];
 
     return Book(
-      title: title,
-      year: year,
-      pages: pages,
-      author: Author(name: authorName, country: country),
-      genre: Genre.fromString(rawGenre),
-      description: description,
+      title: title is String ? title : 'Untitled',
+      year: year is int ? year : 0,
+      pages: pages is int ? pages : 0,
+      author: Author(
+        name: author is String ? author : 'Unknown',
+        country: country is String ? country : null,
+      ),
+      genre: Genre.fromString(genre is String ? genre : null),
+      description: description is String ? description : null,
     );
   }
 
   bool get isLong => pages > 400;
 
   @override
-  String describe() => '$title ($year) by ${author.name} — ${genre.label}';
+  String describe() => '$title ($year) by ${author.name} - ${genre.label}';
 
   Book copyWith({
     String? title,
@@ -108,14 +87,16 @@ class Book extends LibraryItem with Borrowable {
     Author? author,
     Genre? genre,
     String? description,
-  }) => Book(
-    title: title ?? this.title,
-    year: year ?? this.year,
-    pages: pages ?? this.pages,
-    author: author ?? this.author,
-    genre: genre ?? this.genre,
-    description: description ?? this.description,
-  );
+  }) {
+    return Book(
+      title: title ?? this.title,
+      year: year ?? this.year,
+      pages: pages ?? this.pages,
+      author: author ?? this.author,
+      genre: genre ?? this.genre,
+      description: description ?? this.description,
+    );
+  }
 
   @override
   String toString() =>
@@ -135,7 +116,6 @@ class Magazine extends LibraryItem {
   String describe() => '$title, issue #$issue ($year)';
 }
 
-
 class Ghost implements LibraryItem {
   @override
   final String title;
@@ -146,7 +126,7 @@ class Ghost implements LibraryItem {
   const Ghost({required this.title, required this.year});
 
   @override
-  String describe() => 'Ghost entry "$title" — no data available';
+  String describe() => 'Ghost entry "$title" - no data available';
 
   @override
   bool get isOld => true;

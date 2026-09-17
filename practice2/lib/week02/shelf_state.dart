@@ -24,9 +24,10 @@ String describe(ShelfState state) => switch (state) {
   Broken(message: final text) => 'Shelf is broken: $text',
 };
 
-({int count, double avgPages}) statsOf(List<Book> books) => (
-  count: books.length,
-  avgPages: books.isEmpty
+({int count, double avgPages}) statsOf(List<Book> books) {
+  var count = books.length;
+  var avg = books.isEmpty
       ? 0.0
-      : books.fold<int>(0, (sum, book) => sum + book.pages) / books.length,
-);
+      : books.fold<int>(0, (sum, book) => sum + book.pages) / books.length;
+  return (count: count, avgPages: avg);
+}

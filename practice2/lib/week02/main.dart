@@ -7,40 +7,61 @@ void main() {
   final library = Library();
   library.open();
 
-  for (final json in rawBooks) {
-    library.add(Book.fromJson(json));
+  for (var json in rawBooks) {
+    var book = Book.fromJson(json);
+    library.add(book);
   }
 
-  library.add(const Magazine(title: 'Dart Weekly', year: 2024, issue: 42));
+  var magazine = Magazine(title: 'Dart Weekly', year: 2024, issue: 42);
+  library.add(magazine);
 
   print(library.report());
 
-  print('\n--- queries ---');
-  print('All titles: ${library.allTitles}');
-  print(
-    'After 2010: ${library.publishedAfter2010.map((b) => b.title).toList()}',
-  );
-  print('Average pages: ${library.averagePages.toStringAsFixed(1)}');
-  print('Books per author: ${library.booksPerAuthor}');
-  print('Author names: ${library.authorNames}');
-  print('Genres: ${library.genres.map((g) => g.label).toList()}');
+  // q
+  print('');
+  print('all titles:');
+  print(library.allTitles);
 
-  print('\n--- null safety ---');
-  print('Country of "Refactoring": ${library.countryOf('Refactoring')}');
-  print('Country of "Design Patterns": ${library.countryOf('Design Patterns')}');
-  print('Missing book: ${library.findByTitle('No Such Book')}');
-  print('Opened at: ${library.openedAt}');
+  print('books after 2010:');
+  print(library.publishedAfter2010);
 
-  print('\n--- record ---');
-  final stats = statsOf(library.books);
-  print('count = ${stats.count}, avgPages = ${stats.avgPages.toStringAsFixed(1)}');
+  print('');
+  print('average pages = ${library.averagePages}');
 
-  print('\n--- shelf states ---');
-  print(describe(const Empty()));
+  print('books per author:');
+  print(library.booksPerAuthor);
+
+  print('author names:');
+  print(library.authorNames);
+
+  print('genres:');
+  print(library.genres);
+
+  // null
+  print('');
+  print('country of Refactoring = ${library.countryOf('Refactoring')}');
+  print('country of Design Patterns = ${library.countryOf('Design Patterns')}');
+
+  var missing = library.findByTitle('some book that doesnt exist');
+  print('missing book = $missing');
+  print('opened at = ${library.openedAt}');
+
+  // 5
+  var stats = statsOf(library.books);
+  print('');
+  print('stats: count=${stats.count} avg=${stats.avgPages}');
+
+  // switch
+  print('');
+  print(describe(Empty()));
   print(describe(Ready(library.books)));
-  print(describe(const Broken('water damage on the top row')));
+  print(describe(Broken('water damage on top shelf')));
 
-  print('\n--- mixin & implements ---');
-  print(library.books.first.borrowLabel());
-  print(const Ghost(title: 'Lost Manuscript', year: 1900).describe());
+  // mix
+  print('');
+  var firstBook = library.books[0];
+  print(firstBook.borrowLabel());
+
+  var ghost = Ghost(title: 'Lost Manuscript', year: 1900);
+  print(ghost.describe());
 }
