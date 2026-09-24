@@ -13,7 +13,7 @@ void main() {
           children: [
             ProfileHeader(name: myName, university: myUniversity),
             for (final fact in facts)
-              InfoRow(label: fact.label, value: fact.value),
+              InfoRow(label: fact.label, value:fact.value),
           ],
         ),
       ),
