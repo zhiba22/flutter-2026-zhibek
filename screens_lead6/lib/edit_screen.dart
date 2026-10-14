@@ -17,7 +17,7 @@ class _EditScreenState extends State<EditScreen> {
   bool get _dirty => _name != widget.student.name;
 
   Future<void> _confirmDiscard(bool didPop, Object? result) async {
-    if (didPop) return; 
+    if (didPop) return;
 
     final discard = await showDialog<bool>(
       context: context,
@@ -37,7 +37,7 @@ class _EditScreenState extends State<EditScreen> {
     );
 
     if (discard == true && mounted) {
-      Navigator.of(context).pop(); 
+      Navigator.of(context).pop();
     }
   }
 

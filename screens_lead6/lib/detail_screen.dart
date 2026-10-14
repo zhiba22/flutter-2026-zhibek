@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
+
 import 'students.dart';
 import 'routes.dart';
 
-class DetailScreen extends StatefulWidget{
+class DetailScreen extends StatefulWidget {
   const DetailScreen({super.key, required this.student});
 
   final Student student;
@@ -11,42 +12,37 @@ class DetailScreen extends StatefulWidget{
   State<DetailScreen> createState() => _DetailScreenState();
 }
 
-  class _DetailScreenState extends State<DetailScreen>{
-
+class _DetailScreenState extends State<DetailScreen> {
   late Student _student = widget.student;
 
   Future<void> _edit() async {
-    final name = await Navigator.of(context).pushNamed<String>(
-      Routes.edit,
-      arguments: _student,
-  );
+    final name = await Navigator.of(context)
+        .pushNamed<String>(Routes.edit, arguments: _student);
 
-  if (name == null || !mounted) return; 
+    if (name == null || !mounted) return;
 
-  setState(() => _student = _student.copyWith(name: name));
-}
+    setState(() => _student = _student.copyWith(name: name));
+  }
 
   @override
-  Widget build(BuildContext context){
+  Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: Text(_student.name),
-        actions: [
-          IconButton(icon: const Icon(Icons.edit), onPressed: _edit),
-        ],
+        actions: [IconButton(icon: const Icon(Icons.edit), onPressed: _edit)],
       ),
       body: Column(
         children: [
           ListTile(
             leading: const Icon(Icons.school),
-            title: Text(_student.group)
+            title: Text(_student.group),
           ),
           ListTile(
             leading: const Icon(Icons.mail),
-            title: Text(_student.email)
-          )
+            title: Text(_student.email),
+          ),
         ],
-      )
+      ),
     );
   }
 }
