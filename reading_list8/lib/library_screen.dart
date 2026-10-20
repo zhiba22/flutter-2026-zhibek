@@ -19,16 +19,16 @@ class _LibraryScreenState extends State<LibraryScreen> {
   Filter _filter = Filter.all;
 
   List<Book> get _visible => switch (_filter) {
-        Filter.all => _books,
-        Filter.unread => unread(_books),
-        Filter.read => _books.where((b) => b.read).toList(),
-      };
+    Filter.all => _books,
+    Filter.unread => unread(_books),
+    Filter.read => _books.where((b) => b.read).toList(),
+  };
 
   String _label(Filter f) => switch (f) {
-        Filter.all => 'All',
-        Filter.unread => 'Unread',
-        Filter.read => 'Read',
-      };
+    Filter.all => 'All',
+    Filter.unread => 'Unread',
+    Filter.read => 'Read',
+  };
 
   Future<void> _open(Book book) async {
     final action = await Navigator.of(context).push<BookAction>(
@@ -46,9 +46,8 @@ class _LibraryScreenState extends State<LibraryScreen> {
   }
 
   Future<void> _add() async {
-    final book = await Navigator.of(context).push<Book>(
-      MaterialPageRoute(builder: (_) => const AddBookScreen()),
-    );
+    final book = await Navigator.of(context)
+        .push<Book>(MaterialPageRoute(builder: (_) => const AddBookScreen()));
     if (!mounted) return;
     if (book == null) return;
     setState(() => _books.add(book));
@@ -109,22 +108,24 @@ class _Header extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => Card(
-        margin: const EdgeInsets.all(12),
-        child: Padding(
-          padding: const EdgeInsets.symmetric(vertical: 12),
-          child: Row(
-            children: [
-              Expanded(child: _Stat(value: '${books.length}', label: 'Books')),
-              Expanded(
-                child: _Stat(value: '${totalPages(books)}', label: 'Pages'),
-              ),
-              Expanded(
-                child: _Stat(value: '${unread(books).length}', label: 'Unread'),
-              ),
-            ],
+    margin: const EdgeInsets.all(12),
+    child: Padding(
+      padding: const EdgeInsets.symmetric(vertical: 12),
+      child: Row(
+        children: [
+          Expanded(
+            child: _Stat(value: '${books.length}', label: 'Books'),
           ),
-        ),
-      );
+          Expanded(
+            child: _Stat(value: '${totalPages(books)}', label: 'Pages'),
+          ),
+          Expanded(
+            child: _Stat(value: '${unread(books).length}', label: 'Unread'),
+          ),
+        ],
+      ),
+    ),
+  );
 }
 
 class _Stat extends StatelessWidget {

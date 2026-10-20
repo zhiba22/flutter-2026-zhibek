@@ -67,10 +67,7 @@ class BookTile extends StatelessWidget {
                   ],
                 ),
               ),
-              Checkbox(
-                value: book.read,
-                onChanged: (_) => onToggle(),
-              ),
+              Checkbox(value: book.read, onChanged: (_) => onToggle()),
             ],
           ),
         ),

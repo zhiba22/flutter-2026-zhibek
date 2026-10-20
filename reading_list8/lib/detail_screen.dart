@@ -50,8 +50,10 @@ class DetailScreen extends StatelessWidget {
             style: text.bodyLarge,
           ),
           const SizedBox(height: 8),
-          Text(book.read ? 'Status: read' : 'Status: unread',
-              style: text.bodyLarge),
+          Text(
+            book.read ? 'Status: read' : 'Status: unread',
+            style: text.bodyLarge,
+          ),
           const SizedBox(height: 24),
           FilledButton(
             onPressed: () => Navigator.of(context).pop(BookAction.toggleRead),

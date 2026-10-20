@@ -5,7 +5,9 @@ import 'models/book.dart';
 
 void main() {
   debugPrint('${totalPages(seed)} pages, ${unread(seed).length} unread');
-  debugPrint(Book.fromMap({'title': 'X', 'author': 'Y', 'pages': 10}).toString());
+  debugPrint(
+    Book.fromMap({'title': 'X', 'author': 'Y', 'pages': 10}).toString(),
+  );
   runApp(const MyApp());
 }
 
@@ -14,9 +16,9 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => MaterialApp(
-        theme: ThemeData(
-          colorScheme: ColorScheme.fromSeed(seedColor: Colors.indigo),
-        ),
-        home: const LibraryScreen(),
-      );
+    theme: ThemeData(
+      colorScheme: ColorScheme.fromSeed(seedColor: Colors.indigo),
+    ),
+    home: const LibraryScreen(),
+  );
 }

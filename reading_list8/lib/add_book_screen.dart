@@ -41,77 +41,71 @@ class _AddBookScreenState extends State<AddBookScreen> {
 
   @override
   Widget build(BuildContext context) => Scaffold(
-        appBar: AppBar(title: const Text('Add book')),
-        body: Form(
-          key: _formKey,
-          autovalidateMode: AutovalidateMode.onUserInteraction,
-          child: SingleChildScrollView(
-            padding: const EdgeInsets.all(16),
-            child: Column(
-              children: [
-                TextFormField(
-                  controller: _title,
-                  textInputAction: TextInputAction.next,
-                  onTapOutside: _unfocus,
-                  decoration: const InputDecoration(labelText: 'Title'),
-                  validator: (v) => (v ?? '').trim().length < 2
-                      ? 'Title is too short'
-                      : null,
-                ),
-                const SizedBox(height: 16),
-                TextFormField(
-                  controller: _author,
-                  textInputAction: TextInputAction.next,
-                  onTapOutside: _unfocus,
-                  decoration: const InputDecoration(labelText: 'Author'),
-                  validator: (v) =>
-                      (v ?? '').trim().isEmpty ? 'Author is required' : null,
-                ),
-                const SizedBox(height: 16),
-                TextFormField(
-                  controller: _pages,
-                  keyboardType: TextInputType.number,
-                  textInputAction: TextInputAction.next,
-                  onTapOutside: _unfocus,
-                  decoration: const InputDecoration(labelText: 'Pages'),
-                  validator: (v) {
-                    final n = int.tryParse(v ?? '');
-                    if (n == null || n <= 0) return 'A whole number above 0';
-                    return null;
-                  },
-                ),
-                const SizedBox(height: 16),
-                TextFormField(
-                  controller: _year,
-                  keyboardType: TextInputType.number,
-                  textInputAction: TextInputAction.done,
-                  onFieldSubmitted: (_) => _save(),
-                  onTapOutside: _unfocus,
-                  decoration: const InputDecoration(
-                    labelText: 'Year (optional)',
-                  ),
-                  validator: (v) {
-                    final s = (v ?? '').trim();
-                    if (s.isEmpty) return null;
-                    final n = int.tryParse(s);
-                    final now = DateTime.now().year;
-                    if (n == null || n < 1450 || n > now) {
-                      return 'A year between 1450 and $now';
-                    }
-                    return null;
-                  },
-                ),
-                const SizedBox(height: 24),
-                SizedBox(
-                  width: double.infinity,
-                  child: FilledButton(
-                    onPressed: _save,
-                    child: const Text('Save'),
-                  ),
-                ),
-              ],
+    appBar: AppBar(title: const Text('Add book')),
+    body: Form(
+      key: _formKey,
+      autovalidateMode: AutovalidateMode.onUserInteraction,
+      child: SingleChildScrollView(
+        padding: const EdgeInsets.all(16),
+        child: Column(
+          children: [
+            TextFormField(
+              controller: _title,
+              textInputAction: TextInputAction.next,
+              onTapOutside: _unfocus,
+              decoration: const InputDecoration(labelText: 'Title'),
+              validator: (v) =>
+                  (v ?? '').trim().length < 2 ? 'Title is too short' : null,
             ),
-          ),
+            const SizedBox(height: 16),
+            TextFormField(
+              controller: _author,
+              textInputAction: TextInputAction.next,
+              onTapOutside: _unfocus,
+              decoration: const InputDecoration(labelText: 'Author'),
+              validator: (v) =>
+                  (v ?? '').trim().isEmpty ? 'Author is required' : null,
+            ),
+            const SizedBox(height: 16),
+            TextFormField(
+              controller: _pages,
+              keyboardType: TextInputType.number,
+              textInputAction: TextInputAction.next,
+              onTapOutside: _unfocus,
+              decoration: const InputDecoration(labelText: 'Pages'),
+              validator: (v) {
+                final n = int.tryParse(v ?? '');
+                if (n == null || n <= 0) return 'A whole number above 0';
+                return null;
+              },
+            ),
+            const SizedBox(height: 16),
+            TextFormField(
+              controller: _year,
+              keyboardType: TextInputType.number,
+              textInputAction: TextInputAction.done,
+              onFieldSubmitted: (_) => _save(),
+              onTapOutside: _unfocus,
+              decoration: const InputDecoration(labelText: 'Year (optional)'),
+              validator: (v) {
+                final s = (v ?? '').trim();
+                if (s.isEmpty) return null;
+                final n = int.tryParse(s);
+                final now = DateTime.now().year;
+                if (n == null || n < 1450 || n > now) {
+                  return 'A year between 1450 and $now';
+                }
+                return null;
+              },
+            ),
+            const SizedBox(height: 24),
+            SizedBox(
+              width: double.infinity,
+              child: FilledButton(onPressed: _save, child: const Text('Save')),
+            ),
+          ],
         ),
-      );
+      ),
+    ),
+  );
 }

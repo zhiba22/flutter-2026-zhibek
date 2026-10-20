@@ -8,11 +8,11 @@ class Book {
   });
 
   Book.fromMap(Map<String, dynamic> m)
-      : title = m['title'] as String,
-        author = m['author'] as String,
-        pages = m['pages'] as int,
-        year = m['year'] as int?,
-        read = m['read'] as bool? ?? false;
+    : title = m['title'] as String,
+      author = m['author'] as String,
+      pages = m['pages'] as int,
+      year = m['year'] as int?,
+      read = m['read'] as bool? ?? false;
 
   final String title;
   final String author;
@@ -25,11 +25,9 @@ class Book {
       '$title — $author, $pages pp.${year == null ? '' : ' ($year)'}';
 }
 
-int totalPages(List<Book> books) =>
-    books.fold(0, (sum, b) => sum + b.pages);
+int totalPages(List<Book> books) => books.fold(0, (sum, b) => sum + b.pages);
 
-List<Book> unread(List<Book> books) =>
-    books.where((b) => !b.read).toList();
+List<Book> unread(List<Book> books) => books.where((b) => !b.read).toList();
 
 List<String> authors(List<Book> books) =>
     books.map((b) => b.author).toSet().toList();
@@ -60,7 +58,8 @@ final seed = <Book>[
     year: 2020,
   ),
   Book(
-    title: 'A Very Long Title About Forms, Focus, the Keyboard '
+    title:
+        'A Very Long Title About Forms, Focus, the Keyboard '
         'and Everything That Overflows',
     author: 'E. Omarova',
     pages: 176,
