@@ -105,7 +105,7 @@ class _ShellState extends State<Shell> {
       builder: (ctx) => AlertDialog(
         title: const Text('Reset data?'),
         content: const Text(
-          'This restores the existing meetings and clears your profile.',
+          'This restores the seed meetings and clears your profile.',
         ),
         actions: [
           TextButton(
