@@ -12,3 +12,10 @@ Tried to listen to a value exposed with provider, from outside of the widget tre
 
 Silent (context.read inside build): no error, it compiles and runs, but the
 badge is frozen at 0 forever, because nobody said "I depend on the cart".
+
+
+## Level 4: badge rebuilds
+Three presses of + in the cart:
+- badge with context.watch: 3 "badge build" lines (the count did not change,
+  the badge rebuilt anyway);
+- badge with context.select on count: 0 lines. Removing a book prints 1 line.

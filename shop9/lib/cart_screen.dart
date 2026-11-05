@@ -20,9 +20,19 @@ class CartScreen extends StatelessWidget {
                     ListTile(
                       title: Text(b.title),
                       subtitle: Text('${b.price} ₸'),
-                      trailing: IconButton(
-                        icon: const Icon(Icons.close),
-                        onPressed: () => cart.remove(b),
+                      trailing: Row(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          Text('×${cart.qtyOf(b)}'),
+                          IconButton(
+                            icon: const Icon(Icons.add),
+                            onPressed: () => cart.increment(b),
+                          ),
+                          IconButton(
+                            icon: const Icon(Icons.close),
+                            onPressed: () => cart.remove(b),
+                          ),
+                        ],
                       ),
                     ),
                 ],
@@ -30,9 +40,23 @@ class CartScreen extends StatelessWidget {
             ),
           ),
           Consumer<Cart>(
-            builder: (context, cart, _) => Padding(
+            builder: (context, cart, child) => Padding(
               padding: const EdgeInsets.all(16),
-              child: Text('Total: ${cart.total} ₸'),
+              child: Row(
+                children: [
+                  child!,
+                  const Spacer(),
+                  Text('Total: ${cart.total} ₸'),
+                ],
+              ),
+            ),
+            child: const Row(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Icon(Icons.shopping_bag_outlined),
+                SizedBox(width: 8),
+                Text('Your order'),
+              ],
             ),
           ),
         ],

@@ -21,7 +21,9 @@ class BooksScreen extends StatelessWidget {
         itemBuilder: (context, i) {
           final b = books[i];
           debugPrint('row ${b.title}');
-          final inCart = context.watch<Cart>().items.contains(b);
+          final inCart = context.select<Cart, bool>(
+            (c) => c.items.contains(b),
+          );
           return ListTile(
             title: Text(b.title),
             subtitle: Text(b.author),

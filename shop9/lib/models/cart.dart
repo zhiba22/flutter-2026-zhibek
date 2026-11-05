@@ -3,28 +3,38 @@ import 'package:flutter/foundation.dart';
 import 'book.dart';
 
 class Cart extends ChangeNotifier {
-  final List<Book> _items = [];
+  final Map<Book, int> _qty = {};
 
-  List<Book> get items => List.unmodifiable(_items);
+  List<Book> get items => List.unmodifiable(_qty.keys);
 
-  int get count => _items.length;
+  int get count => _qty.length;
 
-  int get total => _items.fold(0, (sum, b) => sum + b.price);
+  int get total =>
+      _qty.entries.fold(0, (sum, e) => sum + e.key.price * e.value);
+
+  int qtyOf(Book b) => _qty[b] ?? 0;
 
   bool add(Book b) {
-    if (_items.contains(b)) return false;
-    _items.add(b);
+    if (_qty.containsKey(b)) return false;
+    _qty[b] = 1;
     notifyListeners();
     return true;
   }
 
   void remove(Book b) {
-    _items.remove(b);
+    _qty.remove(b);
+    notifyListeners();
+  }
+
+  void increment(Book b) {
+    final current = _qty[b];
+    if (current == null) return;
+    _qty[b] = current + 1;
     notifyListeners();
   }
 
   void clear() {
-    _items.clear();
+    _qty.clear();
     notifyListeners();
   }
 }
