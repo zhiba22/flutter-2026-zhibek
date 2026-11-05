@@ -19,3 +19,10 @@ Three presses of + in the cart:
 - badge with context.watch: 3 "badge build" lines (the count did not change,
   the badge rebuilt anyway);
 - badge with context.select on count: 0 lines. Removing a book prints 1 line.
+
+
+## Where does it live?
+- the cart: provided. Many screens read and change it, so it sits above MaterialApp.
+- the search text in the Books AppBar: ephemeral. Only that field and its screen care about it.
+- whether the Cart total is expanded or collapsed: ephemeral. One widget's own State, nobody else reads it.
+- the theme mode: provided. MaterialApp and the switch deep in a screen both need it, like the cart.

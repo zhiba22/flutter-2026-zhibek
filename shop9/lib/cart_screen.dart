@@ -9,7 +9,16 @@ class CartScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('Cart')),
+      appBar: AppBar(
+        title: const Text('Cart'),
+        actions: [
+          IconButton(
+            icon: const Icon(Icons.delete_outline),
+            tooltip: 'Clear cart',
+            onPressed: () => _confirmClear(context),
+          ),
+        ],
+      ),
       body: Column(
         children: [
           Expanded(
@@ -62,5 +71,28 @@ class CartScreen extends StatelessWidget {
         ],
       ),
     );
+  }
+}
+
+Future<void> _confirmClear(BuildContext context) async {
+  final ok = await showDialog<bool>(
+    context: context,
+    builder: (context) => AlertDialog(
+      title: const Text('Clear the cart?'),
+      actions: [
+        TextButton(
+          onPressed: () => Navigator.of(context).pop(false),
+          child: const Text('Cancel'),
+        ),
+        FilledButton(
+          onPressed: () => Navigator.of(context).pop(true),
+          child: const Text('Clear'),
+        ),
+      ],
+    ),
+  );
+
+  if (ok == true && context.mounted) {
+    context.read<Cart>().clear();
   }
 }
