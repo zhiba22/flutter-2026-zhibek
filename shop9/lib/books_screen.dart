@@ -4,9 +4,15 @@ import 'cart_badge.dart';
 import 'main.dart';
 
 class BooksScreen extends StatelessWidget {
-  const BooksScreen({super.key, required this.cart, required this.onAdd});
+  const BooksScreen({
+    super.key,
+    required this.cart,
+    required this.total,
+    required this.onAdd,
+  });
 
   final List<Book> cart;
+  final int total;
   final void Function(Book) onAdd;
 
   @override
@@ -15,7 +21,7 @@ class BooksScreen extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Books'),
-        actions: [CartBadge(count: cart.length)],
+        actions: [CartBadge(count: cart.length, total: total)],
       ),
       body: ListView.builder(
         itemCount: books.length,
