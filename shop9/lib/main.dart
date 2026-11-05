@@ -1,14 +1,27 @@
 import 'package:flutter/material.dart'; 
+
+  
+
 import 'books_screen.dart'; 
-import 'cart_screen.dart';
+
+import 'cart_screen.dart'; 
+
+  
 
 void main() => runApp(const Shell()); 
 
+  
+
 class Book { 
+
   const Book({ 
+
     required this.title, 
+
     required this.author, 
+
     required this.price, 
+
   }); 
 
   final String title; 

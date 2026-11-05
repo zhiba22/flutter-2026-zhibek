@@ -32,7 +32,7 @@ class CartScreen extends StatelessWidget {
           ),
           Padding(
             padding: const EdgeInsets.all(16),
-            child: Text('Total: $total ₸'),
+            child: Text('Total: $total tg'),
           ),
         ],
       ),
